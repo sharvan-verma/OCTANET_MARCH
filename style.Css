@@ -1,0 +1,276 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .header-content, .countdown-content, .venue-content, .gallery-content, .rsvp-content, .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    
+  }
+ .venue-content{
+  font-size: 18px;
+  line-height: 20px;
+ }
+  
+  header {
+    text-align: center;
+    background-color: #fff;
+    padding: 50px 0;
+  }
+  
+  h1, h2 {
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  .countdown, .venue, .gallery, .rsvp {
+    text-align: center;
+    padding: 50px 0;
+  }
+  
+  footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+
+  }
+  
+  form {
+    display: inline-block;
+    text-align: left;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  input, select {
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #555;
+  }
+  
+  .image-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .image-container img {
+    width: 30%;
+    border-radius: 5px;
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .header-content, .countdown-content, .venue-content, .gallery-content, .rsvp-content, .footer-content {
+      padding: 10px;
+    }
+  
+    .image-container {
+      flex-wrap: wrap;
+    }
+  
+    .image-container img {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+  
+
+
+
+/* style.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.header-content, .countdown-content, .venue-content, .gallery-content, .rsvp-content, .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 50px 0;
+    background-image: url('banner.jpg'); /* Adjust the path to your banner image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+h1, h2 {
+    margin: 10px 0;
+}
+
+.countdown, .venue, .gallery, .rsvp {
+    text-align: center;
+    padding: 50px 0;
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+}
+
+form {
+    display: inline-block;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select {
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+/* styles.css */
+.body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.header-content, .countdown-content, .venue-content, .gallery-content, .rsvp-content, .footer-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 50px 0;
+  background-image: url('banner.jpg'); /* Adjust the path to your banner image */
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+h1, h2 {
+  margin: 10px 0;
+}
+
+.countdown, .venue, .gallery, .rsvp {
+  text-align: center;
+  padding: 50px 0;
+}
+
+.countdown-content {
+  font-weight: bold; /* Make the timer bold */
+  font-size: 36px; /* Adjust the font size */
+}
+
+#countdown {
+  margin-top: 20px; /* Add margin to separate the timer */
+  display: inline-block; /* Center the timer */
+}
+
+footer {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+}
+
+form {
+  display: inline-block;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select {
+  margin-bottom: 10px;
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.social-media{
+
+
+ text-align: center;
+}
+
+.orange-text {
+  color: orangered;
+}

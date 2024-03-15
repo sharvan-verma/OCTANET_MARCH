@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('https://images.unsplash.com/photo-1527074040514-81a1eb532f2a');
+        background-size: cover;
+        background-position: center;
+        color: #333;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 0;
+        padding: 20px;
+        background-color: #007bff;
+        color: #fff;
+        border-bottom: 2px solid #0056b3;
+    }
+
+    #taskInput {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 20px 10px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    li:hover {
+        background-color: #f2f2f2;
+    }
+
+    li.completed {
+        background-color: #f2f2f2;
+        text-decoration: line-through;
+    }
+
+    .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+
+    .filter-btns {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .filter-btns button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 5px 10px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .filter-btns button:hover {
+        background-color: #0056b3;
+    }
+
+    .task-count {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .task-count span {
+        margin: 0 5px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Add New Task">
+    <div class="filter-btns">
+        <button id="allBtn">All</button>
+        <button id="activeBtn">Active</button>
+        <button id="completedBtn">Completed</button>
+    </div>
+    <div class="task-count">
+        <span>Total tasks: </span><span id="totalTasks">0</span>
+        <span>|</span>
+        <span>Completed: </span><span id="completedTasks">0</span>
+    </div>
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+        const allBtn = document.getElementById('allBtn');
+        const activeBtn = document.getElementById('activeBtn');
+        const completedBtn = document.getElementById('completedBtn');
+        const totalTasksSpan = document.getElementById('totalTasks');
+        const completedTasksSpan = document.getElementById('completedTasks');
+        let tasks = [];
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function renderTasks() {
+            taskList.innerHTML = '';
+            tasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${task.text}</span>
+                    <div>
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                        <input type="checkbox" ${task.completed ? 'checked' : ''}>
+                    </div>
+                `;
+                li.classList.toggle('completed', task.completed);
+                taskList.appendChild(li);
+                li.querySelector('input').addEventListener('change', () => toggleCompleted(index));
+                li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(index));
+            });
+            updateTaskCount();
+            saveTasks();
+        }
+
+        function addTask(text, completed = false) {
+            tasks.push({ text, completed });
+            renderTasks();
+        }
+
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            renderTasks();
+        }
+
+        function toggleCompleted(index) {
+            tasks[index].completed = !tasks[index].completed;
+            renderTasks();
+        }
+
+        function filterTasks(type) {
+            const filteredTasks = tasks.filter(task => {
+                if (type === 'all') return true;
+                if (type === 'active') return !task.completed;
+                if (type === 'completed') return task.completed;
+            });
+            taskList.innerHTML = '';
+            filteredTasks.forEach((task, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span>${task.text}</span>
+                    <div>
+                        <button class="delete-btn"><i class="fas fa-trash"></i></button>
+                        <input type="checkbox" ${task.completed ? 'checked' : ''}>
+                    </div>
+                `;
+                li.classList.toggle('completed', task.completed);
+                taskList.appendChild(li);
+                li.querySelector('input').addEventListener('change', () => toggleCompleted(index));
+                li.querySelector('.delete-btn').addEventListener('click', () => deleteTask(index));
+            });
+            updateTaskCount();
+        }
+
+        function updateTaskCount() {
+            totalTasksSpan.textContent = tasks.length;
+            const completedTasks = tasks.filter(task => task.completed).length;
+            completedTasksSpan.textContent = completedTasks;
+        }
+
+        taskInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && taskInput.value.trim() !== '') {
+                addTask(taskInput.value.trim());
+                taskInput.value = '';
+            }
+        });
+
+        allBtn.addEventListener('click', () => filterTasks('all'));
+        activeBtn.addEventListener('click', () => filterTasks('active'));
+        completedBtn.addEventListener('click', () => filterTasks('completed'));
+
+        // Drag and drop functionality
+        let dragged;
+
+        taskList.addEventListener('dragstart', function(event) {
+            dragged = event.target;
+            event.target.style.opacity = 0.5;
+        }, false);
+
+        taskList.addEventListener('dragover', function(event) {
+            event.preventDefault();
+        }, false);
+
+        taskList.addEventListener('drop', function(event) {
+            event.preventDefault();
+            if (event.target.tagName === 'LI') {
+                event.target.parentNode.insertBefore(dragged, event.target.nextSibling);
+            } else {
+                event.target.parentNode.insertBefore(dragged, event.target);
+            }
+            event.target.style.opacity = '';
+        }, false);
+    });
+</script>
+</body>
+</html>
